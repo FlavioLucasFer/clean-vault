@@ -7,10 +7,15 @@ import javax.mail.internet.InternetAddress;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class User {
 
+    @Getter
+    @Setter
+    long id;
+    
     @Getter
     String email;
 
