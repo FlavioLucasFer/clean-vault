@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import br.edu.ifpr.vault.domain.entities.dtos.UserDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,12 @@ public class User {
     public User(String email, String password) throws Exception {
         this.setEmail(email);
         this.setPassword(password);
+    }
+
+    public User(UserDTO userDTO) throws Exception {
+        this.id = userDTO.getId();
+        this.setEmail(userDTO.getEmail());
+        this.setPassword(userDTO.getPassword());
     }
 
     public void setEmail(String email) throws Exception {
@@ -54,6 +61,10 @@ public class User {
             result = false;
         }
         return result;
+    }
+
+    public UserDTO toDTO() {
+        return new UserDTO(this.id, this.email, this.password);
     }
 
 }
