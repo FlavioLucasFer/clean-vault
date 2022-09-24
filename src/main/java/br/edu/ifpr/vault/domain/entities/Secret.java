@@ -1,5 +1,6 @@
 package br.edu.ifpr.vault.domain.entities;
 
+import br.edu.ifpr.vault.domain.entities.dtos.SecretDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,20 @@ public class Secret {
     @Setter
     String value;
 
-    public Secret(final User user) {
+    public Secret(final User user, final String value) {
         this.user = user;
         this.token = new Token();
+        this.value = value;
+    }
+
+    public Secret(final SecretDTO secretDTO) {
+        this.id = secretDTO.getId();
+        this.user = new User(secretDTO.getUserDTO());
+        this.token = secretDTO.getToken();
+        this.value = secretDTO.getValue();
+    }
+    
+    public SecretDTO toDTO() {
+        return new SecretDTO(this.id, this.user.toDTO(), this.token, this.value);
     }
 }
