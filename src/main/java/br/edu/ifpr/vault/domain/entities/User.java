@@ -1,6 +1,7 @@
 package br.edu.ifpr.vault.domain.entities;
 
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -8,18 +9,14 @@ import javax.mail.internet.InternetAddress;
 import br.edu.ifpr.vault.domain.entities.dtos.UserDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@Slf4j
 public class User {
-
     @Getter
-    @Setter
-    long id;
-    
+    Long id;
     @Getter
     String email;
-
     @Getter
     String password;
 
@@ -57,7 +54,8 @@ public class User {
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
-        } catch (AddressException ex) {
+        } catch (AddressException exception) {
+            User.log.info(exception.getMessage());
             result = false;
         }
         return result;
