@@ -24,7 +24,7 @@ public class Secret {
         this.value = value;
     }
 
-    public Secret(final SecretDTO secretDTO) {
+    public Secret(final SecretDTO secretDTO) throws Exception {
         this.id = secretDTO.getId();
         this.user = new User(secretDTO.getUserDTO());
         this.token = secretDTO.getToken();

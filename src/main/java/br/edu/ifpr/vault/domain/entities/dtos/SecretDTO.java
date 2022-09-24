@@ -1,6 +1,6 @@
 package br.edu.ifpr.vault.domain.entities.dtos;
 
-import antlr.Token;
+import br.edu.ifpr.vault.domain.entities.Token;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
