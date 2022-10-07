@@ -3,8 +3,8 @@ package br.edu.ifpr.vault.domain.entities;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.edu.ifpr.vault.domain.entities.dtos.UserDTO;
 import lombok.AccessLevel;
@@ -50,15 +50,13 @@ public class User {
     }
 
     private boolean validateEmail(String email) {
-        boolean result = true;
-        try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
-        } catch (AddressException exception) {
-            User.log.info(exception.getMessage());
-            result = false;
-        }
-        return result;
+        String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(email);
+
+            return matcher.matches();
     }
 
     public UserDTO toDTO() {
