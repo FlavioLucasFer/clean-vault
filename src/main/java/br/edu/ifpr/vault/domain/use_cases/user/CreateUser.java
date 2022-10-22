@@ -2,7 +2,7 @@ package br.edu.ifpr.vault.domain.use_cases.user;
 
 import br.edu.ifpr.vault.domain.entities.User;
 import br.edu.ifpr.vault.domain.entities.dtos.UserDTO;
-import br.edu.ifpr.vault.domain.ports.UserRepository;
+import br.edu.ifpr.vault.domain.ports.services.UserServicePort;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +13,9 @@ public class CreateUser {
     @Getter
     UserDTO userDTO;
 
-    public CreateUser(final UserRepository userRepository, final UserDTO userDTO) throws Exception {
+    public CreateUser(final UserServicePort userService, final UserDTO userDTO) throws Exception {
         this.user = new User(userDTO);
 
-        this.userDTO = userRepository.save(this.user.toDTO());
+        this.userDTO = userService.createUser(this.user.toDTO().getEmail(), this.user.toDTO().getPassword());
     }
 }
