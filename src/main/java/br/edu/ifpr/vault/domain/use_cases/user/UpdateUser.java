@@ -15,7 +15,6 @@ public class UpdateUser {
 
   public UpdateUser(final UserServicePort userService, final UserDTO userDTO) throws Exception {
     this.user = new User(userDTO);
-
-    this.userDTO = userService.updateUser(this.user.toDTO().getEmail(), this.user.toDTO().getPassword());
+    this.userDTO = userService.updateUser(this.user.toDTO().getId(), this.user.toDTO().getEmail(), this.user.toDTO().getPassword());
   }
 }

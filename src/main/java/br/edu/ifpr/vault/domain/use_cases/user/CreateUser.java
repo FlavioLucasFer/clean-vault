@@ -15,7 +15,6 @@ public class CreateUser {
 
     public CreateUser(final UserServicePort userService, final UserDTO userDTO) throws Exception {
         this.user = new User(userDTO);
-
         this.userDTO = userService.createUser(this.user.toDTO().getEmail(), this.user.toDTO().getPassword());
     }
 }

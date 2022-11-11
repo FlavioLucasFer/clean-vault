@@ -1,5 +1,7 @@
 package br.edu.ifpr.vault.application.adapters.services;
 
+import java.util.Objects;
+
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import br.edu.ifpr.vault.domain.entities.User;
@@ -17,7 +19,7 @@ public class UserService implements UserServicePort {
 
   @Override
   public UserDTO getUser(Long id) {
-    return null;
+    return this.userRepository.findById(id).toDTO();
   }
 
   @Override
@@ -26,13 +28,26 @@ public class UserService implements UserServicePort {
   }
 
   @Override
-  public UserDTO updateUser(String email, String password) throws NotFoundException, Exception {
-    return null;
+  public UserDTO updateUser(Long id, String email, String password) throws NotFoundException, Exception {
+    var user = this.find(id);
+    user.setEmail(email);
+    user.setPassword(password);
+    return this.userRepository.save(user).toDTO();
   }
 
   @Override
   public void deleteUser(Long id) throws NotFoundException, Exception {
-    
+    var user = this.find(id);
+    this.userRepository.delete(user);
+  }
+
+  private User find(Long id) throws NotFoundException {
+    var user = userRepository.findById(id);
+
+    if (Objects.isNull(user))
+      throw new NotFoundException();
+
+    return user;
   }
   
 }

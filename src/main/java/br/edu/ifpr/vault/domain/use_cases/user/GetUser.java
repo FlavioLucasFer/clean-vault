@@ -15,7 +15,6 @@ public class GetUser {
 
   public GetUser(final UserServicePort userService, final UserDTO userDTO) throws Exception {
     this.user = new User(userDTO);
-
     this.userDTO = userService.getUser(this.user.toDTO().getId());
   }
 }
